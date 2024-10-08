@@ -3,36 +3,31 @@ import mongoose from 'mongoose';
 const collection = "Shifts"
 const schema = new mongoose.Schema({
 
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users',
-        required: true
-    },
     date: {
         type: Date,
         required: true
     },
+    hour: {
+        type: String,
+        required: true
+    },
     duration: {
         type: Number, // duración en minutos
-        default: 60,
         required: true
     },
     status: {
         type: String,
-        enum: ['pending', 'confirmed', 'cancelled'],
-        default: 'pending'
+        default: 'confirmed'
     },
     description: {
         type: String,
-        required: false
+        default: 'Terapia individual',
+        required: true
     },
     price: {
         type: Number,
-        default: 20000,
-        required: true
+        default: 30000,
     }
-}, {
-    timestamps: true // añade createdAt y updatedAt automáticamente
 });
 
 

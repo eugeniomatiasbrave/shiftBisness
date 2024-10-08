@@ -26,36 +26,17 @@ const getShiftById = async (req,res) => {
     }
 };
 
-const createShift = async (req,res) => {
-    const { user, date, duration, status, description , price } = req.body;
-
-    if (!user || !date || !duration || !status || !description || !price) {
-        return res.status(400).send({ status: "error", error: 'Error Data ' }); //   
-    };
-
+const createShift = async (req, res) => {
     try {
-        const newShift = {
-            user,
-            date,
-            duration,
-            status,
-            description,
-            price  
-        };
-
-        const result = await shiftsService.createShift(newShift);
-
-        if (!result) {
-            return res.status(500).send({ status: "error", error: 'Error' });
-        }
-
-        res.json({ status: "success", message: 'Shift created', payload: result }); // data: result es el turno creado.
-
+        const shift = req.body;
+        const result = await shiftsService.createShift(shift);
+        res.status(201).json({ status: "success", data: result });
     } catch (error) {
-        console.log(error);
-        res.status(500).send({ status: 'error', error: error });
+        console.error('Error al crear el turno:', error);
+        res.status(500).json({ status: "error", error: 'Error al crear el turno' });
     }
 };
+
 
 const deleteShift = async (req,res) => {
     const {sid} = req.params;

@@ -1,7 +1,6 @@
-import UserManagers from './UsersManagers.js';
+
 import shiftModel from './models/shift.model.js';
 
-const userManagers = new UserManagers();
 
 export default class ShiftsManagers {
 	
@@ -10,9 +9,7 @@ export default class ShiftsManagers {
 	};
 
     createShift(shift) {
-        const newShift = shiftModel.create(shift);
-        userManagers.addShiftToUser(shift.user, newShift._id);
-        return newShift;
+        return shiftModel.create(shift);
     }
 
     getShiftById (sid) { // Busca solo uno

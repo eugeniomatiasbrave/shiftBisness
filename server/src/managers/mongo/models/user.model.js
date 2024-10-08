@@ -27,11 +27,7 @@ const schema = new mongoose.Schema({
 	role: {
 		type:String,
 		default:'user'       
-	},
-	Shifts: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Shifts'
-    }]
+	}
 });
 
 /* 

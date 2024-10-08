@@ -4,8 +4,6 @@
 
 	export let data;
 
-	console.log('Layout nav:' , data);
-
 	const confirmLogout = (event) => {
         event.preventDefault();
         Swal.fire({
@@ -58,7 +56,7 @@
                 <summary class="btn-ghost text-info font-bold">Menu</summary>
                 <ul class="rounded-lg">
                   <li>
-                    <a href="/shift" class="btn btn-ghost text-info font-bold">Shift</a>
+                    <a href="/shifts" class="btn btn-ghost text-info font-bold">Shift</a>
                   </li>
                   <li> 
                     <a href="/profile" class="btn-ghost text-info font-bold">Profile</a>
