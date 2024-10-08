@@ -56,10 +56,28 @@ const updateUser = async (req, res) => {
     }
 };
 
+const addShiftToUser = async (req, res) => {
+    try {
+        const { userId, sid } = req.params;
+        const shift = await shiftsService.getShiftById(sid);
+        if (!shift) {
+            return res.status(404).send({ status: "error", error: 'Turno no encontrado' });
+        }
+        await usersService.addShiftToUser(userId, sid);
+        const updatedUser = await usersService.getUserById(userId);
+        res.json({ status: "success", message: `Turno agregado al usuario id: ${userId}`, data: updatedUser });
+    } catch (error) {
+        console.error('Error al agregar el turno al usuario:', error);
+        res.status(500).send({ status: "error", error: 'Error al agregar el turno al usuario' });
+    }
+};
+
+
 export default { 
     getUsers,
     getUserById,
     createUser,
     deleteUser,
-    updateUser
+    updateUser,
+    addShiftToUser
 };

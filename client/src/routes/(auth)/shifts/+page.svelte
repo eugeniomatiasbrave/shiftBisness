@@ -1,4 +1,5 @@
 <script>
+  import BackButton from "$lib/components/BackButton.svelte";
   export let form;
 
   export let selectedCharacter = 'Seleccione el horario';
@@ -10,8 +11,9 @@
 
 <h1 class="my-10 text-4xl font-bold text-center text-white">Page Shift</h1>
 <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
+  <BackButton></BackButton>
   <form method="POST">
-    <div class="form-control">
+    <div class=" mt-6 form-control">
       <label class="label" for="date">
         <span class="label-text">Date</span>
       </label>
@@ -45,14 +47,14 @@
       <input type="hidden" name="status" bind:value={status}/>
   
     <div class="mt-6 form-control">
-      <p>{duration}</p>
+      <p>Duracion {duration}</p>
       <input type="hidden" name="duration" value={duration} />
     </div>
-    <div class="mt-6 form-control">
+    <div class="mt-1 form-control">
       <p>{description}</p>
       <input type="hidden" name="description" value={description} />
     </div>
-      <div class="mt-6 form-control">
+      <div class="mt-1 form-control">
         <p>${price}</p>
         <input type="hidden" name="price" value={price} />
     </div>
