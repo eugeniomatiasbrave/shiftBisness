@@ -11,11 +11,11 @@ export default {
     themes: [
       {
         mytheme: { 
-          "primary": "#027b5b", // #0a7399   (morado)
+          "primary": "#542169", // #0a7399   (morado)
           "secondary": "#f6d860",
           "warning": "b3e240", // #b3e240 (verde limon)
-          "info": "#027b5b",
-          "accent": "#26ffbb",
+          "info": "#542169",
+          "accent": "#975fb5",
           "neutral": "#3d4451",
           "base-100": "#ffffff"
         }

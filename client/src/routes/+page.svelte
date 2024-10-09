@@ -15,15 +15,16 @@
     <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
       
 		<div class="mt-6 form-control">
-		  <a href="/shifts" class="btn btn-info"
+		  <a href="/shifts" class="btn btn-info font-bold tracking-tight text-gray-100 sm:text-2xl"
 			>I want to take a turn </a>
 		</div>
 	    <div class="mt-6 form-control">
 	    </div>
-	    <div class="mt-6 form-control">
-		  <a href="/shifts/myShifts" class="btn btn-info"
-		    >My Shifts</a>
-	    </div>
+		<div class="mt-6 form-control">
+			<a href="/shifts/myShifts" class="btn btn-info font-bold tracking-tight text-gray-100 sm:text-2xl"
+			  >My Shifts</a>
+		  </div>
+	    
   </div>
 {/if}
 {:else}
