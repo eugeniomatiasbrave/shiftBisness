@@ -1,8 +1,9 @@
 <script>
   import BackButton from "$lib/components/BackButton.svelte";
+
   export let form;
 
-  export let selectedCharacter = 'Seleccione el horario';
+  
   export let status = 'confirmed';
   export let duration = 45;
   export let description = 'Terapia individual';
@@ -31,7 +32,7 @@
         <span class="label-text">Hours</span>
       </label>
       <select name="hour" value={form?.hour} class="input input-bordered" >
-        <option value={form?.hour} disabled selected >Seleccione una hora</option>
+        <option value={form?.hour} disabled selected >Select a time</option>
         <option value="10:00">10:00 hs</option>
         <option value="11:00">11:00 hs</option>
         <option value="12:00">12:00 hs</option>
@@ -44,10 +45,10 @@
       </select>
     </div>
     
-      <input type="hidden" name="status" bind:value={status}/>
+    <input type="hidden" name="status" bind:value={status}/>
   
     <div class="mt-6 form-control">
-      <p>Duracion {duration}</p>
+      <p>Duration {duration}</p>
       <input type="hidden" name="duration" value={duration} />
     </div>
     <div class="mt-1 form-control">
@@ -60,7 +61,7 @@
     </div>
     <div class="mt-6 form-control">
       <button class="btn btn-info" type="submit"
-        >Create Product</button>
+        >Create Shift</button>
     </div>
   </form>
 </div>

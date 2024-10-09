@@ -1,4 +1,5 @@
 import { usersService } from "../managers/index.js"
+import { shiftsService } from "../managers/index.js"
 
 const getUsers = async (req, res) => {
     try {
@@ -57,18 +58,17 @@ const updateUser = async (req, res) => {
 };
 
 const addShiftToUser = async (req, res) => {
+    const { userId } = req.params;
+    const { date, hour, duration, status, description, price } = req.body;
+
     try {
-        const { userId, sid } = req.params;
-        const shift = await shiftsService.getShiftById(sid);
-        if (!shift) {
-            return res.status(404).send({ status: "error", error: 'Turno no encontrado' });
-        }
-        await usersService.addShiftToUser(userId, sid);
-        const updatedUser = await usersService.getUserById(userId);
-        res.json({ status: "success", message: `Turno agregado al usuario id: ${userId}`, data: updatedUser });
+        const newShift = await shiftsService.createShift({ userId, date, hour, duration, status, description, price });
+        await usersService.addShiftToUser(userId, newShift._id);
+
+        res.status(201).send({ status: "success", data: newShift });
     } catch (error) {
-        console.error('Error al agregar el turno al usuario:', error);
-        res.status(500).send({ status: "error", error: 'Error al agregar el turno al usuario' });
+        console.error('Error adding shift to user:', error);
+        res.status(500).send({ status: "error", error: 'Error adding shift to user' });
     }
 };
 

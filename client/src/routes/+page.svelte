@@ -16,13 +16,13 @@
        <form method="POST">
 		<div class="mt-6 form-control">
 		  <a href="/shifts" class="btn btn-info" type="submit"
-			>Quiero sacar un Turno </a>
+			>I want to take a turn </a>
 		</div>
 	    <div class="mt-6 form-control">
 	    </div>
 	    <div class="mt-6 form-control">
 		  <button class="btn btn-info" type="submit"
-		    >Mis Turnos</button>
+		    >My shifts</button>
 	    </div>
 	  </form>
   </div>
@@ -31,6 +31,6 @@
 
 <h1 class="my-10 text-4xl font-bold text-center text-white"> Welcome to ShiftBisnnes</h1>
 
-<h1 class="my-10 text-4xl font-bold text-center text-white"> Por favor registrate y logueate</h1>
+<h1 class="my-10 text-4xl font-bold text-center text-white"> Please register and log in</h1>
 	
 {/if}

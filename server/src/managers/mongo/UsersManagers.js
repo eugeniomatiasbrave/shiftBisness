@@ -26,8 +26,9 @@ export default class UsersManagers {
     updateUser(userId, updateData) {
         return usersModel.updateOne({ _id: userId }, { $set: updateData });
     }
-
+ 
     addShiftToUser(userId, shiftId) {
         return usersModel.findByIdAndUpdate(userId, { $push: { shifts: shiftId } });
     }
+
 }

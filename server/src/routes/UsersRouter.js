@@ -9,6 +9,7 @@ router.get('/:userId', executePolicies(['ADMIN', 'USER']), usersController.getUs
 router.post('/', executePolicies(['ADMIN']), usersController.createUser);
 router.delete('/:userId', executePolicies(['ADMIN']), usersController.deleteUser);
 router.put('/:userId', executePolicies(['ADMIN', 'USER']), usersController.updateUser);
-router.post('/:userId/shift/:sid', executePolicies(['USER','ADMIN']), usersController.addShiftToUser);
+
+router.post('/:userId/shifts',usersController.addShiftToUser);
 
 export default router;

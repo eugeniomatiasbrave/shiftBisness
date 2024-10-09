@@ -1,4 +1,4 @@
-import { fail, redirect } from "@sveltejs/kit";
+import { fail } from "@sveltejs/kit";
 const API_URL = process.env.VITE_API_URL;
 
 export const actions = {
@@ -10,16 +10,19 @@ export const actions = {
         const status = formData.get("status");
         const description = formData.get("description");
         const price = formData.get("price");
-        const userId = locals.user.id; // Obtener el ID del usuario desde `locals`
+        const userId = locals.user._id; // Obtener el ID del usuario desde `locals`
 
-        const body = { date, hour, duration, status, description, price };
+        
+        const body = {date, hour, duration, status, description, price };
+        
+        
 
         if (!date || !hour || !duration || !status || !description || !price) {
             return fail(400, { date, hour, duration, status, description, price, missing: true });
         }
-        
-        // Crear el turno
-        const shiftRes = await fetch(`${API_URL}/shifts`, {
+
+        // Crear el turno y agregarlo al usuario
+        const shiftRes = await fetch(`${API_URL}/users/${userId}/shifts`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -28,26 +31,17 @@ export const actions = {
         });
 
         if (shiftRes.status !== 200) {
-            const shiftResBody = await shiftRes.json();
-            return fail(shiftRes.status, shiftResBody);
+            const resBody = await shiftRes.json();
+            return fail(shiftRes.status, resBody);
         }
+       
+		const resBody = await shiftRes.json();
 
-        const shiftResBody = await shiftRes.json();
-        const shiftId = shiftResBody.data._id; // Obtener el ID del turno creado
-
-        // Asociar el turno al usuario
-        const userShiftRes = await fetch(`${API_URL}/users/${userId}/shift/${shiftId}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-
-        if (userShiftRes.status !== 200) {
-            const userShiftResBody = await userShiftRes.json();
-            return fail(userShiftRes.status, userShiftResBody);
-        }
-
-        throw redirect(303, '/shifts');
-    }
+        console.log("resBody client:", resBody);
+	
+        return {
+           status: 200,
+           body: { message: "Register successful", data: resBody }
+	    };
+}
 };

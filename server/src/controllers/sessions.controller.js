@@ -53,7 +53,7 @@ const login = async (req, res) => {
             return res.status(401).json({ status: "error", message: "Invalid credentials" });
         }
 
-        const token = jwt.sign( {email: user.email, name: user.name, role: user.role }, SECRET_KEY, { expiresIn: '1d' });
+        const token = jwt.sign( {_id: user._id, email: user.email, name: user.name, role: user.role }, SECRET_KEY, { expiresIn: '1d' });
         res.cookie('AuthorizationToken', token, { httpOnly: true, secure: true }).json({ status: "success", message: "logged in" });
         console.log('Token Server:', token);
 };

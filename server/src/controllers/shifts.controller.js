@@ -1,5 +1,4 @@
 import { shiftsService } from "../managers/index.js"
-import { usersService } from '../managers/index.js';
 
 const getShifts = async (req,res) => {
     try {
@@ -29,9 +28,8 @@ const getShiftById = async (req,res) => {
 
 const createShift = async (req, res) => {
     try {
-        const shift = await shiftsService.createShift(req.body);
-        await usersService.addShiftToUser(req.body.userId, shift._id); // Agregar el turno al usuario
-        res.status(201).json({ status: "success", message: "Turno creado", data: shift });
+        const newShift = await shiftsService.createShift(req.body);
+        res.status(201).json({ status: "success", message: "Turno creado", data: newShift });
     } catch (error) {
         console.error('Error al crear el turno:', error);
         res.status(500).send({ status: "error", error: 'Error al crear el turno' });
