@@ -13,18 +13,17 @@
 	<h1 class="my-10 text-4xl font-bold text-center text-white"> Welcome to ShiftBisnnes {data.user.name}</h1>
 
     <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
-       <form method="POST">
+      
 		<div class="mt-6 form-control">
-		  <a href="/shifts" class="btn btn-info" type="submit"
+		  <a href="/shifts" class="btn btn-info"
 			>I want to take a turn </a>
 		</div>
 	    <div class="mt-6 form-control">
 	    </div>
 	    <div class="mt-6 form-control">
-		  <button class="btn btn-info" type="submit"
-		    >My shifts</button>
+		  <a href="/shifts/myShifts" class="btn btn-info"
+		    >My Shifts</a>
 	    </div>
-	  </form>
   </div>
 {/if}
 {:else}

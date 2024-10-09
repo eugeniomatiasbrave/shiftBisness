@@ -16,6 +16,10 @@ export default class ShiftsManagers {
 		return shiftModel.findOne({_id:sid}).lean(); 
 	};
 
+    getShiftsByUserId(userId) { // Busca por usuario
+        return shiftModel.find({ userId }).lean();
+    };
+
     deleteShift(sid){ // elimina uno
         return shiftModel.deleteOne({_id: sid});
     };	

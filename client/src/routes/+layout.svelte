@@ -58,6 +58,9 @@
                   <li>
                     <a href="/shifts" class="btn btn-ghost text-info font-bold">Shift</a>
                   </li>
+                  <li>
+                    <a href="/shifts/myShifts" class="btn btn-ghost text-info font-bold">My Shifts</a>
+                  </li>
                   <li> 
                     <a href="/profile" class="btn-ghost text-info font-bold">Profile</a>
                   </li>

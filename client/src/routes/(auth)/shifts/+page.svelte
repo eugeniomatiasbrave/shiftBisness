@@ -63,5 +63,9 @@
       <button class="btn btn-info" type="submit"
         >Create Shift</button>
     </div>
+    <div class="mt-3 form-control">
+      <a href="/" class="btn btn-secondary" 
+        >Cancel</a>
+    </div>
   </form>
 </div>

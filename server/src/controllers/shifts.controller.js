@@ -84,10 +84,23 @@ const updateShift = async (req,res) => {
     }
 };
 
+const getShiftsByUserId = async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        const shiftsToUser = await shiftsService.getShiftsByUserId(userId)
+        res.json({ status: "success", data: shiftsToUser });
+    } catch (error) {
+        console.error('Error al obtener los turnos:', error);
+        res.status(500).send({ status: "error", error: 'Error al obtener los turnos' });
+    }
+};
+
 export default { 
 	getShifts,
 	getShiftById,
 	createShift,
 	deleteShift,
-	updateShift
+	updateShift,
+    getShiftsByUserId
 };
