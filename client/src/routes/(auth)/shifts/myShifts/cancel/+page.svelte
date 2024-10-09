@@ -1,0 +1,1 @@
+<h2 class="my-4 text-4xl font-bold text-center text-white">Cancel Shifts</h2>

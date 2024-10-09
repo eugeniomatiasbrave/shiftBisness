@@ -1,19 +1,44 @@
 <script>
+  import { enhance } from "$app/forms";
+	import { goto } from "$app/navigation";
+	import Swal from "sweetalert2";
   import BackButton from "$lib/components/BackButton.svelte";
 
   export let form;
 
-  
   export let status = 'confirmed';
   export let duration = 45;
   export let description = 'Terapia individual';
   export let price = 20000;
+
+  $: st = 0;
+	let enhanceResult;
+	
 </script>
 
 <h1 class="my-10 text-4xl font-bold text-center text-white">Page Shift</h1>
 <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
   <BackButton></BackButton>
-  <form method="POST">
+  <form method="POST"
+  
+  use:enhance={() => {
+    return async ({ result }) => {
+      enhanceResult = result;
+      st = enhanceResult.st;
+      Swal.fire({
+        title: "¡Guardado con éxito!",
+        text: "El registro fue creado con éxito",
+        icon: "success",
+        confirmButtonColor: "#0a7399",
+        confirmButtonText: "Aceptar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          goto("/shifts/myShifts");
+        }
+      });
+    };
+  }}
+  >
     <div class=" mt-6 form-control">
       <label class="label" for="date">
         <span class="label-text">Date</span>

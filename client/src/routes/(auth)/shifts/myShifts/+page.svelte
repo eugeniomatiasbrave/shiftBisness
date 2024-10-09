@@ -40,13 +40,11 @@
 								<td>{shift.description}</td>
 								<td>{shift.status}</td>
 								<td>
-									<form method="POST" action={`/myShifts/${shift._id}/edit`}>
-										<input type="hidden" name="sid" value={shift._id} />
 										<button type="submit" class="btn btn-info">change date</button>
-									</form>
+									
 								</td>
 								<td>
-									<form method="POST" action={`/myShifts/${shift._id}/delete`}>
+									<form method="POST" action='/shifts/myShifts/cancel'>
 										<input type="hidden" name="sid" value={shift._id} />
 										<button type="submit" class="btn btn-secondary">Cancel</button>
 									</form>
