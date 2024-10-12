@@ -56,6 +56,9 @@
                 <summary class="btn-ghost text-info font-bold">Menu</summary>
                 <ul class="rounded-lg">
                   <li>
+                    <a href="/calendar" class="btn btn-ghost text-info font-bold">Calendar</a>
+                  </li>
+                  <li>
                     <a href="/shifts" class="btn btn-ghost text-info font-bold">Shift</a>
                   </li>
                   <li>

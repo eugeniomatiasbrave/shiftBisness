@@ -16,9 +16,11 @@
       
 		<div class="mt-6 form-control">
 		  <a href="/shifts" class="btn btn-info font-bold tracking-tight text-gray-100 sm:text-2xl"
-			>I want to take a turn </a>
+			>New Shifts </a>
 		</div>
 	    <div class="mt-6 form-control">
+			<a href="/calendar" class="btn btn-info font-bold tracking-tight text-gray-100 sm:text-2xl"
+			  >View Calendar</a>
 	    </div>
 		<div class="mt-6 form-control">
 			<a href="/shifts/myShifts" class="btn btn-info font-bold tracking-tight text-gray-100 sm:text-2xl"

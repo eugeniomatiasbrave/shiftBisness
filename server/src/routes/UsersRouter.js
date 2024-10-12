@@ -6,15 +6,15 @@ const router = Router();
 // users routes
 
 ///api/users/
-router.get('/', executePolicies(['ADMIN']), usersController.getUsers);
+router.get('/',  usersController.getUsers);
 ///api/users/:userId
 router.get('/:userId', usersController.getUserById);
 ///api/users/
-router.post('/', executePolicies(['ADMIN']), usersController.createUser);
+router.post('/', usersController.createUser);
 ///api/users/:userId
-router.delete('/:userId', executePolicies(['ADMIN']), usersController.deleteUser);
+router.delete('/:userId', usersController.deleteUser);
 ///api/users/:userId
-router.put('/:userId', executePolicies(['ADMIN', 'USER']), usersController.updateUser);
+router.put('/:userId', usersController.updateUser);
 // /api/users/:userId/shifts
 router.post('/:userId/shifts',usersController.addShiftToUser); // hay algo mal en las politicas de seguridad 09/10/2024
 
