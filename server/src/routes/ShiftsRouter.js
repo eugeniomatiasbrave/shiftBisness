@@ -1,5 +1,6 @@
 import { Router } from "express";
 import shiftsController from "../controllers/shifts.controller.js";
+//import { authenticateToken } from "../middleware/auth.js"; // Middleware para manejar roles
 
 const router = Router();
 

@@ -33,13 +33,16 @@
       <ul class="menu menu-horizontal">
       {#if data.user}
         {#if data.user.role === 'admin'}
-		<li>
+		   <li>
             <details>
                 <summary class="btn-ghost text-info font-bold">Admin</summary>
                 <ul class="rounded-lg mt-1">
-				  <li>
-					<a href="/users" class="btn-ghost text-info font-bold">Users</a>
-				  </li>
+				      <li>
+					     <a href="/users" class="btn-ghost text-info font-bold">Users</a>
+				       </li>
+               <li>
+                <a href="/adminShifts" class="btn-ghost text-info font-bold">AdminShifts</a>
+                </li>
                   <li> 
                     <a href="/dashboard" class="btn-ghost text-info font-bold">Dashboard</a>
                   </li>

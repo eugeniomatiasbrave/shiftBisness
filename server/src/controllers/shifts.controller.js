@@ -28,7 +28,14 @@ const getShiftById = async (req,res) => {
 
 const createShift = async (req, res) => {
     try {
-        const newShift = await shiftsService.createShift(req.body);
+        const { userId, date, dayOfWeek, hour, duration, status, description, price } = req.body;
+
+        if (!userId || !date || !dayOfWeek || !hour || !duration || !status || !description || !price) {
+            return res.status(400).json({ status: "error", message: "Missing required fields" });
+        }
+
+        const shift = { userId, date, dayOfWeek, hour, duration, status, description, price };
+        const newShift = await shiftsService.createShift(shift);
         res.status(201).json({ status: "success", message: "Turno creado", data: newShift });
     } catch (error) {
         console.error('Error al crear el turno:', error);

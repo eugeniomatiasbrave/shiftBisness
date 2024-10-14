@@ -24,8 +24,8 @@ export default class ShiftsManagers {
         return shiftModel.deleteOne({_id: sid});
     };	
 
-    updateShift(sid, updateData){ // edita uno
+    updateShift(sid, updateData) {
         return shiftModel.updateOne({ _id: String(sid) }, { $set: updateData });
-    };
+    }
 
 };

@@ -7,6 +7,7 @@
   import 'flatpickr/dist/flatpickr.css';
   import { onMount } from 'svelte';
 
+
   export let data;
   const { shifts } = data;
   console.log(shifts);
@@ -37,15 +38,18 @@
     });
   });
 
-  $: if (selectedDate) {
-    filterShiftsByDate([new Date(selectedDate)]);
+
+  async function handleStatusChange(shift) {
+    if (shift.status === 'Vacant') {
+      shift.status = 'Reserved';
+      await updateShiftStatus(shift);
+    }
   }
 </script>
 
 <h1 class="my-10 text-4xl font-bold text-center text-white">Page Shift</h1>
-<div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
+<div class=" mx-auto bg-white p-8 rounded-lg shadow-md">
   <BackButton></BackButton>
-  <div bind:this={calendarContainer}></div>
   <form method="POST"
     use:enhance={() => {
       return async ({ result }) => {
@@ -65,33 +69,44 @@
       };
     }}
   >
-  <p> Fecha {selectedDate}</p>
-    <div class="overflow-x-auto">
-      <table>
-        <thead class="text-center">
-          <tr>
-            <th>Select</th>
-            <th>Hour</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody class="text-center">
-          {#each filteredShifts as shift }
-            <tr>
-              <input type="checkbox">
-              <td>{shift.date}</td>
-              <td>{shift.hour}</td>         
-              <td>{shift.status}</td>
-            </tr>
-          {/each}
-        </tbody>
-      </table>
+    <div class="flex">
+      <!--section Calendar-->
+      <div bind:this={calendarContainer} class="mr-4"></div>
+      <!--section Shifts-->
+      <div class="overflow-x-auto">
+        {#if filteredShifts.length === 0}
+          <div class="text-center" style="width: 200px; height: 200px;">
+            <p>No hay turnos seleccionados, elija una fecha.</p>
+             <!-- <img src={Imgsveltekit} alt="No data"/> -->
+          </div>
+        {:else}
+          <table>
+            <thead class="text-center">
+              <tr>
+                <th>Select</th>
+                <th>Day</th>
+                <th>Hour</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              {#each filteredShifts as shift (shift._id)} 
+                <tr>
+                  <input type="checkbox" name="status" value="Reserved" on:change={() => handleStatusChange(shift)}>
+                  <input type="hidden" name="sid" value={shift._id}>
+                  <td>{shift.dayOfWeek}</td>
+                  <td>{shift.hour}</td>         
+                  <td>{shift.status}</td>
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        {/if}
+      </div>
     </div>
     
-    
-    
     <div class="mt-6 form-control">
-      <button class="btn btn-info" type="submit">Create Shift</button>
+      <button class="btn btn-info" type="submit">Select Shift</button>
     </div>
     <div class="mt-3 form-control">
       <a href="/" class="btn btn-secondary">Cancel</a>
