@@ -1,9 +1,6 @@
 <script>
-
-export let data;
+  export let data;
 	const {shifts} = data;
-
-	console.log(shifts.data);
 
   let hours = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"];
   let duration = ["30 min","40 min", "45 min", "60 min"];
@@ -15,23 +12,15 @@ export let data;
   let selectedDate = '';
   let dayOfWeek = '';
 
- 
   function updateDayOfWeek(event) {
     const daysOfWeek = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const date = new Date(event.target.value);
     dayOfWeek = daysOfWeek[date.getDay()];
   }
 
-  function updateDayShift(event) {
-    const daysOfShift = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-    const date = new Date(event.target.value);
-    dayOfShift = daysOfShift[date.getDay()];
-  }
-
-
 </script>
 
-<h1 class="my-10 text-4xl font-bold text-center text-white">Create One Shift</h1>
+<h1 class="my-10 text-4xl font-bold text-center text-white">Crud Amin Shift</h1>
 <form method="POST" action="?/oneShift" class="space-y-4 bg-slate-200 p-2">
   <table class="table-auto w-full p-2">
     <thead>
@@ -143,5 +132,4 @@ export let data;
       {/each}
   </tbody>
 </table>
-  
 </form>
