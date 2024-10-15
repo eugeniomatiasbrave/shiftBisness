@@ -5,14 +5,14 @@
   console.log(shifts);
 
   let selectedDate = '';
-  let filteredShifts = shifts;
+  let filteredShifts = [];
 
-function handleDateChange(event) {
-  selectedDate = event.target.value;
-  console.log('Selected Date:', selectedDate);
-  // Aquí puedes agregar la lógica para filtrar los turnos por fecha
-  filterShiftsByDate(selectedDate);
-}
+  // Función para obtener la fecha actual en formato YYYY-MM-DD
+  function getCurrentDate() {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  }
+
 
 function filterShiftsByDate(date) {
     filteredShifts = shifts.filter(shift => {
@@ -20,6 +20,20 @@ function filterShiftsByDate(date) {
       return shiftDate === date;
     });
   }
+
+  // Al cargar el componente, filtrar los turnos por la fecha actual
+  $: {
+    const currentDate = getCurrentDate();
+    selectedDate = currentDate; // Establecer la fecha actual como valor por defecto
+    filterShiftsByDate(currentDate);
+  }
+
+  function handleDateChange(event) {
+  selectedDate = event.target.value;
+  console.log('Selected Date:', selectedDate);
+  // Aquí puedes agregar la lógica para filtrar los turnos por fecha
+  filterShiftsByDate(selectedDate);
+}
 
   
 </script>
@@ -29,7 +43,7 @@ function filterShiftsByDate(date) {
   <BackButton></BackButton>
   <form method="POST">
 
-  <input type="date" on:change={handleDateChange}>
+  <input type="date" bind:value={selectedDate} on:change={handleDateChange} class="input input-bordered">
 
     <div class="mt-6 form-control">
       <button class="btn btn-info" type="submit">Select Shift</button>
