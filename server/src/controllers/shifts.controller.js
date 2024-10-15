@@ -66,31 +66,18 @@ const deleteShift = async (req,res) => {
     }
 };
 
-const updateShift = async (req,res) => {
+const updateShift = async (req, res) => {
+    const { sid } = req.params;
+    const updateData = req.body;
     try {
-        const { sid } = req.params;
-        const updateData = req.body;
-
-        if (!updateData.user || !updateData.date || !updateData.duration || !updateData.status || !updateData.description || !updateData.price) {
-            return res.status(400).send({ status: "error", error: 'Faltan datos para actualizar el turno' });
-        }
-        // Númerico y positivo
-        if (updateData.price && isNaN(updateData.price) || updateData.price < 0) {
-            return res.status(400).send({ status: "error", error: 'El precio debe ser un número positivo' });
-        }
-        const result = await shiftsService.updateShift(sid, updateData);
-
-        if (result === -1) {
-            return res.status(500).send({ status: "error", error: 'Error al actualizar el turno' });
-        }
-        const updatedShift = await shiftsService.getShiftById(sid);
-        res.json({ status: "success", message: `Turno actualizado id: ${pid}`, data: updatedShift });
+        const updatedShift = await shiftsService.updateShift(sid, updateData);
+        res.json({ payload: updatedShift });
     } catch (error) {
-        console.error('Error al actualizar el turno:', error);
-        res.status(500).send({ status: "error", error: 'Error al actualizar el turno' });
+        res.status(500).json({ error: error.message });
     }
 };
-
+   
+    
 const getShiftsByUserId = async (req, res) => {
     try {
         const { userId } = req.params;

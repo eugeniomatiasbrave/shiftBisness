@@ -1,32 +1,44 @@
 <script>
 
-  
-  
+export let data;
+	const {shifts} = data;
+
+	console.log(shifts.data);
+
   let hours = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"];
   let duration = ["30 min","40 min", "45 min", "60 min"];
-  let selectedDate = '';
-  let dayOfWeek = '';
   let status = 'Vacant';
+  let statusOptions = ['Vacant', 'Reserved', 'Cancelled'];
   let price = 20000;
   let description = 'Terapia individual';
+  //un turno
+  let selectedDate = '';
+  let dayOfWeek = '';
 
-
+ 
   function updateDayOfWeek(event) {
     const daysOfWeek = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const date = new Date(event.target.value);
     dayOfWeek = daysOfWeek[date.getDay()];
   }
 
+  function updateDayShift(event) {
+    const daysOfShift = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const date = new Date(event.target.value);
+    dayOfShift = daysOfShift[date.getDay()];
+  }
+
+
 </script>
 
 <h1 class="my-10 text-4xl font-bold text-center text-white">Create One Shift</h1>
-<form method="POST" class="space-y-4 bg-slate-200 p-2">
+<form method="POST" action="?/oneShift" class="space-y-4 bg-slate-200 p-2">
   <table class="table-auto w-full p-2">
     <thead>
       <tr>
         <th>Date</th>
         <th>Day of Week</th>
-        <th>Hour</th>
+        <th>Time</th>
         <th>Duration</th>
         <th>Status</th>
         <th>Price</th>
@@ -71,4 +83,65 @@
       </tr>
     </tbody>
   </table>
+</form>
+
+<h1 class="my-8 text-4xl font-bold text-center text-white">Shifts</h1>
+<form  method="POST" action="?/dayShifts"  class="space-y-4 bg-slate-200 p-2">
+  <table class="table-auto w-full p-2">
+    <thead>
+      <tr>
+        <th>Date </th>
+        <th>Day of Week</th>
+        <th>Time</th>
+        <th>Duration</th>
+        <th>Status</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {#each shifts as shift (shift._id)}
+          <tr>
+              <td>{shift.date}</td>
+              <td>{shift.dayOfWeek}</td>
+              <td>{shift.hour}</td>
+              <td>
+                  <select name="duration" class="select select-bordered" form="edit-{shift._id}">
+                      {#each duration as dur}
+                          <option value={dur} selected={dur === shift.duration}>{dur}</option>
+                      {/each}
+                  </select>
+              </td>
+              <td>
+                <select name="status" class="select select-bordered" form="edit-{shift._id}">
+                  {#each statusOptions as st}
+                      <option value={st} selected={st === shift.status}>{st}</option>
+                  {/each}
+              </select>
+              </td>
+              <td>
+                  <input type="number" name="price" value={shift.price} class="input input-bordered" form="edit-{shift._id}" />
+              </td>
+              <td>
+                  <input type="text" name="description" value={shift.description} class="input input-bordered" form="edit-{shift._id}" />
+              </td>
+              <td class="text-center">
+                  <form id="edit-{shift._id}" method="POST" action="?/editShift">
+                      <input type="hidden" name="sid" value={shift._id} />
+                      <button type="submit" class="btn btn-info">Edit</button>
+                  </form>
+              </td>
+              <td class="text-center">
+                  <form method="POST" action="?/deleteShift">
+                      <input type="hidden" name="shiftId" value={shift._id} />
+                      <button type="submit" class="btn btn-secondary">Delete</button>
+                  </form>
+              </td>
+          </tr>
+      {/each}
+  </tbody>
+</table>
+  
 </form>
