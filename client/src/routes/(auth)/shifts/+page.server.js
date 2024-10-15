@@ -5,7 +5,7 @@ export const load = async () => {
     const getShifts = async () => {
         const response = await fetch(`${API_URL}/shifts`);
         const data = await response.json();
-       const shifts = data.payload;
+        const shifts = data.payload;
         return shifts;
     };
 
@@ -13,7 +13,6 @@ export const load = async () => {
         shifts: await getShifts(),
     };
 };
-
 
 export const actions = {
     default: async ({ request, locals }) => {

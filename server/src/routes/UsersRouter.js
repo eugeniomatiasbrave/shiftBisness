@@ -1,6 +1,6 @@
 import { Router } from "express";
 import usersController from "../controllers/users.controller.js";
-import { executePolicies } from "../middleware/auth.js"; // Middleware para manejar roles
+//import { executePolicies } from "../middleware/auth.js"; // Middleware para manejar roles
 
 const router = Router();
 // users routes
