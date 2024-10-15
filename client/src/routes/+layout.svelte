@@ -11,7 +11,7 @@
             text: '¿Deseas cerrar sesión?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#0a7399',
+            confirmButtonColor: '#542169',
             cancelButtonColor: '#f6d860',
             confirmButtonText: 'Sí, cerrar sesión',
             cancelButtonText: '<span style="color: black;">Cancelar</span>'

@@ -21,7 +21,7 @@
 </script>
 
 <h1 class="my-10 text-4xl font-bold text-center text-white">Crud Amin Shift</h1>
-<form method="POST" action="?/oneShift" class="space-y-4 bg-slate-200 p-2">
+<form method="POST" action="?/oneShift" class="space-y-4 bg-slate-100 p-2 rounded">
   <table class="table-auto w-full p-2">
     <thead>
       <tr>
@@ -76,7 +76,7 @@
 
 <div class="my-2"></div>
 
-<form  method="POST" action="?/dayShifts"  class="space-y-4 bg-slate-200 p-2">
+<form  method="POST" action="?/dayShifts" class="space-y-4 bg-slate-100 p-2 rounded">
   <table class="table-auto w-full p-2">
     <thead>
       <tr>
@@ -126,7 +126,7 @@
               <td class="text-center">
                   <form method="POST" action="?/deleteShift">
                       <input type="hidden" name="shiftId" value={shift._id} />
-                      <button type="submit" class="btn btn-secondary">Delete</button>
+                      <button type="submit" class="btn btn-secondary ">Delete</button>
                   </form>
               </td>
           </tr>
