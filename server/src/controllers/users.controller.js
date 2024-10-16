@@ -3,8 +3,8 @@ import { shiftsService } from "../managers/index.js"
 
 const getUsers = async (req, res) => {
     try {
-        const users = await usersService.getUsers();
-        res.json({ status: "success", data: users });
+        const shiftsUser = await usersService.getUsers();
+        res.json({ status: "success", data: shiftsUser });
     } catch (error) {
         console.error('Error al obtener los usuarios:', error);
         res.status(500).send({ status: "error", error: 'Error al obtener los usuarios' });

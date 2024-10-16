@@ -5,7 +5,7 @@ export const load = async () => {
     const getShifts = async () => {
         const response = await fetch(`${API_URL}/shifts`);
         const data = await response.json();
-        const shifts = data.payload;
+       const shifts = data.payload;
         return shifts;
     };
 
@@ -14,15 +14,15 @@ export const load = async () => {
     };
 };
 
+
 export const actions = {
     default: async ({ request, locals }) => {
         const formData = await request.formData();
         const userId = locals.user._id; // Obtener el ID del usuario desde `locals`
-        const userRole = locals.user.role;
         const sid = formData.get("sid");
         const status = formData.get("status");
 
-        const body = { userId, sid, userRole, status };
+        const body = { userId, sid, status };
         console.log("body:", body);
        
         // Crear el turno y agregarlo al usuario

@@ -69,6 +69,11 @@ const deleteShift = async (req,res) => {
 const updateShift = async (req, res) => {
     const { sid } = req.params;
     const updateData = req.body;
+
+    if (!updateData.userId) {
+        updateData.userId = '670c29a1622be5f507318ebf' // userId del admin
+     }
+     
     try {
         const updatedShift = await shiftsService.updateShift(sid, updateData);
         res.json({ payload: updatedShift });
