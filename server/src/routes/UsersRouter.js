@@ -16,6 +16,6 @@ router.delete('/:userId', usersController.deleteUser);
 ///api/users/:userId
 router.put('/:userId', usersController.updateUser);
 // /api/users/:userId/shifts
-router.post('/:userId/shifts',usersController.addShiftToUser); // hay algo mal en las politicas de seguridad 09/10/2024
+router.post('/:userId/shifts',usersController.addShiftToUser);
 
 export default router;

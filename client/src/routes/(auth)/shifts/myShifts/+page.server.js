@@ -42,6 +42,6 @@ export const actions = {
             return { success: false, error: 'Error canceling shift ' };
         }
 
-        throw redirect(303, '/shifts/myShifts');
+        throw redirect(303, '/shifts');
     }
 }

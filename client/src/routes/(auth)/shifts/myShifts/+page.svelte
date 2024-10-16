@@ -1,14 +1,21 @@
-
 <script>
-    export let data;
-	const {shiftsUser} = data;
-	console.log(shiftsUser.data);
+import BackButton from "$lib/components/BackButton.svelte";
+export let data;
+const {shiftsUser} = data;
+console.log(shiftsUser.data);
+
+function formatDate(dateString) {
+    const [year, month, day] = dateString.split('T')[0].split('-');
+    return `${day}/${month}/${year}`;
+}
+
 </script>
 
 <h2 class="my-4 text-4xl font-bold text-center text-white">List My Shifts</h2>
 <div class="bg-slate-100 p-2 rounded-md mt-11">
-<div class="w-full rounded-md shadow-xl card bg-base-50 border">
-    <div class="card-body">
+  <BackButton></BackButton>
+  <div class="w-full rounded-md shadow-xl card bg-base-50 border mt-3">
+   
         <div class="container-table">
             <div class="overflow-x-auto">
 			  <form method="POST">
@@ -24,7 +31,6 @@
                             <th>Status</th>
                             <th>Description</th>
                             <th>Price</th>
-							<th>change date</th>
 							<th>Cancel</th>
                         </tr>
                     </thead>
@@ -35,16 +41,13 @@
 								<td>{shift._id}</td>
 								<input type="hidden" name="sid" value={shift._id}>
 								<td>{shift.userId}</td>
-								<td>{shift.date}</td>
+								<td>{formatDate(shift.date)}</td>
 								<td>{shift.dayOfWeek}</td>
 								<td>{shift.hour}</td>         
 								<td>{shift.duration}</td>
 								<td>{shift.status}</td>
 								<td>{shift.description}</td>
 								<td>{shift.price}</td>
-								<td>
-									<button type="submit" class="btn btn-info">change date</button> 	
-								</td>
 								<td>	
 								   <button type="submit" class="btn btn-secondary">Cancel</button>	
 								</td>
@@ -56,5 +59,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>
