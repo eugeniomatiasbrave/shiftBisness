@@ -56,33 +56,7 @@ export const actions = {
             body: { message: "Register successful", data: resBody }
         };
     },
-    deleteShift: async ({ request }) => {
-        const formData = await request.formData();
-        const shiftId = formData.get("shiftId");
 
-        if (!shiftId) {
-            return fail(400, { error: "Shift ID is required" });
-        }
-
-        const res = await fetch(`${API_URL}/shifts/${shiftId}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-
-        if (!res.ok) {
-            const resBody = await res.json();
-            return fail(res.status, resBody);
-        }
-
-        const resBody = await res.json();
-
-        return {
-            status: 200,
-            body: { message: "Register successful", data: resBody }
-        };
-    },
     editShift: async ({ request }) => {
         const formData = await request.formData();
         const sid = formData.get("sid");

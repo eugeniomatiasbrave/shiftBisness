@@ -1,6 +1,6 @@
 <script>
   export let data;
-	const {shifts} = data;
+  const {shifts} = data;
 
   let hours = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"];
   let duration = ["30 min","40 min", "45 min", "60 min"];
@@ -12,15 +12,48 @@
   let selectedDate = '';
   let dayOfWeek = '';
 
+  let filteredShifts = [];
+  let selectedDateTable = '';
+
+  function getCurrentDate() {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  }
+
+  function filterShiftsByDate(date) {
+    filteredShifts = shifts.filter(shift => {
+      const shiftDate = new Date(shift.date).toISOString().split('T')[0];
+      return shiftDate === date; // filtro tambien por estado 'Vacant'
+    });
+  }
+
+  function formatDate(dateString) {
+    const [year, month, day] = dateString.split('T')[0].split('-');
+    return `${day}/${month}/${year}`;
+  }
+
+  $: {
+    const currentDate = getCurrentDate();
+    selectedDate = currentDate;
+	selectedDateTable = currentDate;
+    filterShiftsByDate(currentDate);
+  }
+  
   function updateDayOfWeek(event) {
     const daysOfWeek = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const date = new Date(event.target.value);
     dayOfWeek = daysOfWeek[date.getDay()];
   }
 
+  function handleDateChange(event) {
+    selectedDate = event.target.value;
+    console.log('Selected Date:', selectedDate);
+    filterShiftsByDate(selectedDate);
+  }
+
 </script>
 
-<h1 class="my-10 text-4xl font-bold text-center text-white">Crud Amin Shift</h1>
+<h1 class="my-10 text-4xl font-bold text-center text-white">Crud Admin Shift</h1>
 <form method="POST" action="?/oneShift" class="space-y-4 bg-slate-100 p-2 rounded">
   <table class="table-auto w-full p-2">
     <thead>
@@ -67,7 +100,7 @@
           <input type="text" name="description" bind:value={description} class="input input-bordered">
         </td>
         <td class="text-center">
-          <button type="submit" class="btn btn-info">Create One Shift</button>
+          <button type="submit" class="btn btn-info">Create a shift</button>
         </td> 
       </tr>
     </tbody>
@@ -77,6 +110,7 @@
 <div class="my-2"></div>
 
 <form  method="POST" action="?/dayShifts" class="space-y-4 bg-slate-100 p-2 rounded">
+	<input type="date" bind:value={selectedDateTable} on:change={handleDateChange} class="input input-bordered">
   <table class="table-auto w-full p-2">
     <thead>
       <tr>
@@ -87,14 +121,13 @@
         <th>Status</th>
         <th>Price</th>
         <th>Description</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th>Edit Shift</th>
       </tr>
     </thead>
     <tbody>
-      {#each shifts as shift (shift._id)}
+      {#each filteredShifts as shift (shift._id)}
           <tr>
-                <td>{shift.date}</td>
+			  <td>{formatDate(shift.date)}</td>
               <td>{shift.dayOfWeek}</td>
               <td>{shift.hour}</td>
               <td>
@@ -105,10 +138,14 @@
                   </select>
               </td>
               <td>
-                <select name="status" class="select select-bordered" form="edit-{shift._id}">
-                  {#each statusOptions as st}
-                      <option value={st} selected={st === shift.status}>{st}</option>
-                  {/each}
+                <select 
+				    name="status" 
+					class={`select select-bordered ${shift.status === 'Vacant' ? 'bg-yellow-500' : shift.status === 'Reserved' ? 'bg-green-500' : shift.status === 'Cancelled' ? 'bg-red-400' : '' } `} 
+					form="edit-{shift._id}">
+
+                    {#each statusOptions as st}
+                      <option value={st} selected={st === shift.status} >{st}</option>
+                    {/each}
               </select>
               </td>
               <td>
@@ -120,13 +157,7 @@
               <td class="text-center">
                   <form id="edit-{shift._id}" method="POST" action="?/editShift">
                       <input type="hidden" name="sid" value={shift._id} />
-                      <button type="submit" class="btn btn-info">Edit</button>
-                  </form>
-              </td>
-              <td class="text-center">
-                  <form method="POST" action="?/deleteShift">
-                      <input type="hidden" name="shiftId" value={shift._id} />
-                      <button type="submit" class="btn btn-secondary ">Delete</button>
+                      <button type="submit" class="btn btn-info">Edit a shift</button>
                   </form>
               </td>
           </tr>
@@ -134,3 +165,9 @@
   </tbody>
 </table>
 </form>
+
+<style>
+    .btn-fixed-width {
+        width: 100px; 
+    }
+</style>

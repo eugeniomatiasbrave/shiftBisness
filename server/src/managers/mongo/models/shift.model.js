@@ -6,8 +6,8 @@ const schema = new mongoose.Schema({
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      },
-      date: {
+    },
+    date: {
         type: Date,
         required: true,
     },
@@ -26,7 +26,7 @@ const schema = new mongoose.Schema({
     status: {
       type: String,
       default: "Vacant",
-  },
+    },
     description: {
       type: String,
       default: "Terapia individual",

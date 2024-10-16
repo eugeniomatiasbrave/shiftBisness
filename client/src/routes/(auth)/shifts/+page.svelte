@@ -22,18 +22,23 @@ function filterShiftsByDate(date) {
     });
   }
 
+  function formatDate(dateString) {
+    const [year, month, day] = dateString.split('T')[0].split('-');
+    return `${day}/${month}/${year}`;
+  }
+
   // Al cargar el componente, filtrar los turnos por la fecha actual
-  $: {
+$: {
     const currentDate = getCurrentDate();
     selectedDate = currentDate; // Establecer la fecha actual como valor por defecto
     filterShiftsByDate(currentDate);
   }
 
-  function handleDateChange(event) {
+function handleDateChange(event) {
   selectedDate = event.target.value;
   console.log('Selected Date:', selectedDate);
   filterShiftsByDate(selectedDate);
-}
+  }
 
 function handleCheckboxChange(event, shift) {
     if (event.target.checked) {
@@ -78,7 +83,7 @@ function handleCheckboxChange(event, shift) {
           <td>{shift._id}</td>
           <input type="hidden" name="sid" value={shift._id}>
           <td>{shift.userId}</td>
-          <td>{shift.date}</td>
+          <td>{formatDate(shift.date)}</td>
           <td>{shift.dayOfWeek}</td>
           <td>{shift.hour}</td>         
           <td>{shift.duration}</td>
@@ -90,9 +95,7 @@ function handleCheckboxChange(event, shift) {
     </tbody>
   </table>
 </div>
-
-<input type="hidden" name="status" value={newStatus}>
-
+<input type="hidden" name="status" value={newStatus}> <!-- Estado por defecto al reservar -->
 <div class="flex-auto">
   <div class="mt-3 form-control">
     <button type="submit" class="btn btn-info">Reserve</button>
