@@ -1,5 +1,4 @@
 import { error, fail } from '@sveltejs/kit';
-
 const API_URL = process.env.VITE_API_URL;
 
 export const actions = {

@@ -4,15 +4,14 @@ import config from '../config/config.js';
 import AuthService from "../services/AuthService.js";
 import { usersService } from "../managers/index.js";
 
-
 const SECRET_KEY = config.jwt.SECRET_KEY;
 const ADMIN_USER = config.app.ADMIN_USER;
 const ADMIN_PWD = config.app.ADMIN_PWD;
 
 const register = async (req, res) => {
-    try {
-        const { email, name, password } = req.body;
+    const { email, name, password } = req.body;
 
+    try {
         let role = 'user';
         if (email === ADMIN_USER && password === ADMIN_PWD) {
            role = 'admin';
@@ -21,12 +20,7 @@ const register = async (req, res) => {
         const authService = new AuthService();
         const hashedPassword = await authService.hashPassword(password);
 
-        const newUser = {
-            email,
-            name,
-            password: hashedPassword,
-            role
-        };
+        const newUser = { email, name, password: hashedPassword, role};
 
         await usersService.createUser(newUser);
         res.status(200).json({ status: "success", message: "Registered" });
@@ -37,16 +31,11 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     const { email, password } = req.body;
-    console.log(email, password); // ok llega el email y password
-
-        const user = await usersService.getUserByEmail(email);
+    const user = await usersService.getUserByEmail(email);
 
         if (!user) {
             return res.status(401).json({ status: "error", message: "Invalid credentials" });
         }
-
-        console.log('User email:', user.email);
-
         // Verificar la contraseña
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
@@ -62,10 +51,6 @@ const logout = (req,res)=>{
 	res.clearCookie('AuthorizationToken').send({ status: "success", message: "logged out" });
 }
 
-const admin = (req, res) => {
-    res.send({ status: "success", message: "Admin" });
-};
-
 const current = (req, res) => {
 };
 
@@ -73,6 +58,5 @@ export default {
     register,
     login,
     current,
-    logout,
-    admin
+    logout
 };

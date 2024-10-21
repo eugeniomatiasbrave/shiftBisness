@@ -1,5 +1,6 @@
 import { Router } from "express";
 import usersController from "../controllers/users.controller.js";
+
 //import { executePolicies } from "../middleware/auth.js"; // Middleware para manejar roles
 
 const router = Router();
@@ -15,7 +16,5 @@ router.post('/', usersController.createUser);
 router.delete('/:userId', usersController.deleteUser);
 ///api/users/:userId
 router.put('/:userId', usersController.updateUser);
-// /api/users/:userId/shifts
-router.post('/:userId/shifts',usersController.addShiftToUser);
 
 export default router;

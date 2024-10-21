@@ -100,7 +100,7 @@
           <input type="text" name="description" bind:value={description} class="input input-bordered">
         </td>
         <td class="text-center">
-          <button type="submit" class="btn btn-info">Create a shift</button>
+          <button type="submit" class="btn btn-info text-white">Create a shift</button>
         </td> 
       </tr>
     </tbody>
@@ -157,7 +157,7 @@
               <td class="text-center">
                   <form id="edit-{shift._id}" method="POST" action="?/editShift">
                       <input type="hidden" name="sid" value={shift._id} />
-                      <button type="submit" class="btn btn-info">Edit a shift</button>
+                      <button type="submit" class="btn btn-info text-white">Edit a shift</button>
                   </form>
               </td>
           </tr>

@@ -16,7 +16,7 @@ export default class UsersManagers {
     }
 
     createUser(user) {
-        return usersModel.create({ ...user, shifts: [] });
+        return usersModel.create({ user });
     }
 
     deleteUser(userId) {
@@ -26,9 +26,4 @@ export default class UsersManagers {
     updateUser(userId, updateData) {
         return usersModel.updateOne({ _id: userId }, { $set: updateData });
     }
- 
-    addShiftToUser(userId, shiftId) {
-        return usersModel.findByIdAndUpdate(userId, { $push: { shifts: shiftId } });
-    }
-
 }

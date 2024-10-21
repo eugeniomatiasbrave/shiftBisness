@@ -31,12 +31,11 @@
     </div>
     <div class="flex-none">
       <ul class="menu menu-horizontal">
+       
       {#if data.user}
+     
         {#if data.user.role === 'admin'}
-		   <li>
-            <details>
-                <summary class="btn-ghost text-info font-bold">Admin</summary>
-                <ul class="rounded-lg mt-1">
+		   
 				      <li>
 					     <a href="/users" class="btn-ghost text-info font-bold">Patients</a>
 				       </li>
@@ -49,15 +48,7 @@
                   <form method="POST" action="/logout" class="btn btn-ghost text-info font-bold" on:submit={confirmLogout}>
                     <button type='submit'>Logout</button>
                   </form>
-                </ul>
-            </details>
-          </li>
-          
         {:else}
-          <li>
-            <details>
-                <summary class="btn-ghost text-info font-bold">Menu</summary>
-                <ul class="rounded-lg">
                   <li>
                     <a href="/shifts" class="btn btn-ghost text-info font-bold">Shift</a>
                   </li>
@@ -65,17 +56,15 @@
                     <a href="/shifts/myShifts" class="btn btn-ghost text-info font-bold">My Shifts</a>
                   </li>
                   <li> 
-                    <a href="/profile" class="btn-ghost text-info font-bold">Profile</a>
+                    <a href="/profile" class=" btn btn-ghost text-info font-bold">Profile</a>
                   </li>
                   <form method="POST" action="/logout" class="btn btn-ghost text-info font-bold" on:submit={confirmLogout}>
                     <button type='submit'>Logout</button>
                   </form>
-                </ul>
-            </details>
-          </li>
         {/if}
       {:else}
         <li><a href="/info" class="btn btn-ghost text-info font-bold">Info</a></li>
+        <li><a href="/contact" class="btn btn-ghost text-info font-bold">Contact</a></li>
         <li><a href="/login" class="btn btn-ghost text-info font-bold">Login</a></li>
       {/if}
       </ul>

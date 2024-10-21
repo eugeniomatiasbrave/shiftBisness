@@ -1,5 +1,5 @@
 import { usersService } from "../managers/index.js"
-import { shiftsService } from "../managers/index.js"
+import userModel from '../managers/mongo/models/user.model.js';
 
 const getUsers = async (req, res) => {
     try {
@@ -12,8 +12,9 @@ const getUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
+    const userId = req.params.userId;
+    
     try {
-        const userId = req.params.userId;
         const user = await usersService.getUserById(userId);
         res.json({ status: "success", data: user });
     } catch (error) {
@@ -23,8 +24,9 @@ const getUserById = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
+    const user = req.body;
+
     try {
-        const user = req.body;
         const newUser = await usersService.createUser(user);
         res.json({ status: "success", data: newUser });
     } catch (error) {
@@ -34,8 +36,9 @@ const createUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
+    const userId = req.params.userId;
+
     try {
-        const userId = req.params.userId;
         const result = await usersService.deleteUser(userId);
         res.json({ status: "success", data: result });
     } catch (error) {
@@ -45,39 +48,24 @@ const deleteUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
+    const userId = req.params.userId;
+    const updateData = req.body;
+
+
     try {
-        const userId = req.params.userId;
-        const updateData = req.body;
         const result = await usersService.updateUser(userId, updateData);
-        const updatedUser = await usersService.getUserById(userId);
-        res.json({ status: "success", message: `Usuario actualizado id: ${userId}`, data: updatedUser });
+        res.json({ status: "success", data: result });
     } catch (error) {
         console.error('Error al actualizar el usuario:', error);
         res.status(500).send({ status: "error", error: 'Error al actualizar el usuario' });
     }
 };
 
-const addShiftToUser = async (req, res) => {
-    const { userId } = req.params;
-    const { date, hour, duration, status, description, price } = req.body;
-
-    try {
-        const newShift = await shiftsService.createShift({ userId, date, hour, duration, status, description, price });
-        await usersService.addShiftToUser(userId, newShift._id);
-
-        res.status(201).send({ status: "success", data: newShift });
-    } catch (error) {
-        console.error('Error adding shift to user:', error);
-        res.status(500).send({ status: "error", error: 'Error adding shift to user' });
-    }
-};
-
-
 export default { 
     getUsers,
     getUserById,
     createUser,
     deleteUser,
-    updateUser,
-    addShiftToUser
+    updateUser
 };
+
