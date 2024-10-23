@@ -27,7 +27,7 @@
 
 <nav class="navbar bg-base-100 border-b">
     <div class="flex-1">
-      <a href="/" class="btn btn-ghost normal-case text-2xl text-info font-bold">ShiftBisnnes</a>
+      <a href="/" class="btn btn-ghost normal-case text-2xl text-info font-bold">ShiftBisness</a>
     </div>
     <div class="flex-none">
       <ul class="menu menu-horizontal">
