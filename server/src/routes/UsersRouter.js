@@ -1,9 +1,10 @@
 import { Router } from "express";
 import usersController from "../controllers/users.controller.js";
+import uploader from '../services/uploader.js';
 
-//import { executePolicies } from "../middleware/auth.js"; // Middleware para manejar roles
 
 const router = Router();
+
 // users routes
 
 ///api/users/
@@ -15,6 +16,6 @@ router.post('/', usersController.createUser);
 ///api/users/:userId
 router.delete('/:userId', usersController.deleteUser);
 ///api/users/:userId
-router.put('/:userId', usersController.updateUser);
+router.put('/:userId', uploader.single('avatar'), usersController.updateUser);
 
 export default router;

@@ -17,8 +17,10 @@ app.listen(PORT, () => {
 });
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(`${__dirname}/public`));
 app.use(express.json()); 
 app.use(cookieParser());
+
 app.use('/api/sessions', SessionsRouter);
 app.use('/api/shifts', ShiftsRouter);
 app.use('/api/users', UsersRouter); // Usa las rutas de usuarios

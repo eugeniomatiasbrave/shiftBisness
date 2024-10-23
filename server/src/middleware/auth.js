@@ -12,6 +12,7 @@ export const authenticateToken = (req, res, next) => {
     });
 };
 
+
 export const authorizeAdmin = (req, res, next) => {
     if (req.user.role !== 'admin') {
         return res.sendStatus(403);

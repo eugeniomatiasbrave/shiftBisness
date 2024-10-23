@@ -1,26 +1,5 @@
 import mongoose from 'mongoose';
 
-/* 
-Luego: repasar para implementar la relación entre usuarios y productos si los hubiera
-   type: mongoose.Schema.Types.ObjectId,
-   unique:true,
-   index:true,
-   ref: 'Products',
-   Incorporar: Date.now
-
-   slug: {
-        type: String,
-        unique: true
-    },
-*/
-
-/* 
-Populate: 
-   schema.pre(['find','findOne'], function(){
-	 this.populate('cartId')
-   })
-*/
-
 
 const collection = "Users";
 const schema = new mongoose.Schema({
@@ -54,7 +33,8 @@ const schema = new mongoose.Schema({
         default: ''
     },
 	avatar: {
-		type: String // Aquí se almacenará la imagen codificada en Base64
+		type: String,
+        default: '' 
 	  }
 });
 

@@ -22,11 +22,12 @@
 
   
 
-  // console.log('Avatar', user.data.avatar);  
+  console.log('Avatar', user.name);  
   // aqui llega la imagen .
   // 21/10 11.59 am
 
 </script>
+
 
 <h1 class="my-10 text-4xl font-bold text-center text-white"> Welcome to Profile</h1>
 <div class="card shadow-lg bg-white rounded-xl w-full">
@@ -40,7 +41,7 @@
 
                           
                         <img 
-                           src={selectedImage ? URL.createObjectURL(selectedImage[0]) : user.data.avatar} 
+                           src={selectedImage ? URL.createObjectURL(selectedImage[0]) : user.avatar} 
                            alt="avatar-preview"
                            id="avatar-preview"
                            class="w-full h-full object-cover rounded-full"
@@ -64,7 +65,7 @@
                         </label>
                         <input
                             type="email"
-                            bind:value={user.data.email}
+                            bind:value={user.email}
                             id="email"
                             name="email"
                             placeholder="mail@mail.com"
@@ -78,7 +79,7 @@
                         </label>
                         <input
                             type="text"
-                            bind:value={user.data.name}
+                            bind:value={user.name}
                             id="nombre"
                             name="name"
                             placeholder="Nombre"

@@ -1,5 +1,6 @@
 import { usersService } from "../managers/index.js"
-import userModel from '../managers/mongo/models/user.model.js';
+import mongoose from 'mongoose';
+import __dirname from '../utils.js';
 
 const getUsers = async (req, res) => {
     try {
@@ -12,10 +13,15 @@ const getUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-    const userId = req.params.userId;
-    
     try {
+        const userId = req.params.id;
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).send({ status: "error", error: 'ID de usuario no válido' });
+        }
         const user = await usersService.getUserById(userId);
+        if (!user) {
+            return res.status(404).send({ status: "error", error: 'Usuario no encontrado' });
+        }
         res.json({ status: "success", data: user });
     } catch (error) {
         console.error('Error al obtener el usuario:', error);
@@ -51,6 +57,9 @@ const updateUser = async (req, res) => {
     const userId = req.params.userId;
     const updateData = req.body;
 
+    if (req.file) {
+        updateData.avatar = `/files/users/${req.file.filename}`;
+    }
 
     try {
         const result = await usersService.updateUser(userId, updateData);
@@ -61,6 +70,8 @@ const updateUser = async (req, res) => {
     }
 };
 
+
+
 export default { 
     getUsers,
     getUserById,
@@ -68,4 +79,3 @@ export default {
     deleteUser,
     updateUser
 };
-
