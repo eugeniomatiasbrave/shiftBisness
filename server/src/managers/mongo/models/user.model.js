@@ -20,22 +20,16 @@ const schema = new mongoose.Schema({
         type: String,
         default: 'user'
     },
-    phone: {
-        type: String,
-        default: ''
-    },
-    address: {
-        type: String,
-        default: ''
-    },
-    bio: {
-        type: String,
-        default: ''
-    },
-	avatar: {
-		type: String,
-        default: '' 
-	  }
+    avatar: {
+        type: Array,
+        default: [
+            { maintype: 'image/webp', 
+              path: '/files/default/avatar-default.webp', 
+              main: true 
+            }
+        ]
+    }
+   
 });
 
 

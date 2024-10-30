@@ -8,9 +8,6 @@ const storage = multer.diskStorage({
         switch(req.baseUrl) {
             case '/api/users':
                 dinamicFolder = 'users';
-                break;
-            default:
-                dinamicFolder = 'others';
         }
 
         return cb(null, `${__dirname}/public/files/${dinamicFolder}`);

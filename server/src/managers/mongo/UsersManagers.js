@@ -16,7 +16,7 @@ export default class UsersManagers {
     }
 
     createUser(user) {
-        return usersModel.create({ user });
+        return usersModel.create(user);
     }
 
     deleteUser(userId) {

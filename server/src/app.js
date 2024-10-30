@@ -1,5 +1,7 @@
 import express from "express";
 import __dirname from './utils.js';
+
+import path from "path";
 import SessionsRouter from './routes/SessionsRouter.js';
 import ShiftsRouter from './routes/ShiftsRouter.js';
 import UsersRouter from './routes/UsersRouter.js'; 
@@ -17,7 +19,8 @@ app.listen(PORT, () => {
 });
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos estáticos desde la carpeta 'public'
+
 app.use(express.json()); 
 app.use(cookieParser());
 

@@ -29,6 +29,21 @@ const getUserById = async (req, res) => {
     }
 };
 
+const getUserByEmail = async (req, res) => {
+    const email = req.params.email;
+
+    try {
+        const user = await usersService.getUserByEmail(email);
+        if (!user) {
+            return res.status(404).send({ status: "error", error: 'Usuario no encontrado' });
+        }
+        res.json({ status: "success", data: user });
+    } catch (error) {
+        console.error('Error al obtener el usuario:', error);
+        res.status(500).send({ status: "error", error: 'Error al obtener el usuario' });
+    }
+}
+
 const createUser = async (req, res) => {
     const user = req.body;
 
@@ -75,6 +90,7 @@ const updateUser = async (req, res) => {
 export default { 
     getUsers,
     getUserById,
+    getUserByEmail,
     createUser,
     deleteUser,
     updateUser

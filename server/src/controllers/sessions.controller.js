@@ -9,7 +9,9 @@ const ADMIN_USER = config.app.ADMIN_USER;
 const ADMIN_PWD = config.app.ADMIN_PWD;
 
 const register = async (req, res) => {
-    const { email, name, password } = req.body;
+    const { email, name, password} = req.body;
+
+    console.log(email, name, password);
 
     try {
         let role = 'user';
@@ -20,9 +22,17 @@ const register = async (req, res) => {
         const authService = new AuthService();
         const hashedPassword = await authService.hashPassword(password);
 
-        const newUser = { email, name, password: hashedPassword, role };
+        const user = {
+             email,
+             name,
+             password: hashedPassword, 
+             role
+             
+        };
 
-        await usersService.createUser(newUser);
+      const newUser = await usersService.createUser(user);
+
+        console.log(newUser);
         res.status(200).json({ status: "success", message: "Registered" });
     } catch (error) {
         res.status(500).json({ status: "error", message: "Registration failed", error: error.message });
@@ -42,7 +52,7 @@ const login = async (req, res) => {
             return res.status(401).json({ status: "error", message: "Invalid credentials" });
         }
 
-        const token = jwt.sign( {_id: user._id, email: user.email, name: user.name, role: user.role, avatar: user.avatar }, SECRET_KEY, { expiresIn: '1d' });
+        const token = jwt.sign( {_id: user._id, email: user.email, name: user.name, role: user.role }, SECRET_KEY, { expiresIn: '1d' });
         res.cookie('AuthorizationToken', token, { httpOnly: true, secure: true }).json({ status: "success", message: "logged in" });
         console.log('Token Server:', token);
 };
@@ -51,6 +61,10 @@ const logout = (req,res)=>{
 	res.clearCookie('AuthorizationToken').send({ status: "success", message: "logged out" });
 }
 
+const admin = (req, res) => {
+    res.send({ status: "success", message: "Admin" });
+};
+
 const current = (req, res) => {
 };
 
@@ -58,5 +72,6 @@ export default {
     register,
     login,
     current,
-    logout
+    logout, 
+    admin
 };

@@ -9,7 +9,11 @@ export const actions = {
 		const name = formData.get("name");
 		const password = formData.get("password");
 
-		const body = { email, name , password };
+		const body = { 
+			email, 
+			name , 
+			password
+		 };
 
 		if (!email) {
 			return fail(400, { email, missing: true });
@@ -26,6 +30,7 @@ export const actions = {
 			body: JSON.stringify(body),
 		});
 
+		
 		
 		if (res.status !== 200) {
 			const resBody = await res.json();

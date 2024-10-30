@@ -1,18 +1,14 @@
 import { Router } from 'express';
 import sessionsController from "../controllers/sessions.controller.js";
 //import { authenticateToken, authorizeAdmin } from '../middleware/auth.js';
+//import uploader from "../services/uploader.js";
 
-class SessionsRouter extends Router {
-    constructor() {
-        super();
-        this.init = () => {
-            this.post('/register', sessionsController.register);
-            this.post('/login', sessionsController.login);
-            this.get('/logout', sessionsController.logout);
-            this.get('/current', sessionsController.current);
-        };
-        this.init();
-    }
-}
-
-export default new SessionsRouter();
+const router = Router();
+       
+router.post('/register', sessionsController.register);
+router.post('/login', sessionsController.login);
+router.get('/logout', sessionsController.logout);
+router.get('/current', sessionsController.current);
+router.get('/admin',sessionsController.admin);
+        
+export default router;
