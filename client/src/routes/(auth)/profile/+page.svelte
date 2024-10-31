@@ -2,6 +2,12 @@
   export let data;
   const { user } = data;
 
+  let fileInput;
+  
+  function handleClick() {
+    fileInput.click();
+  }
+
 </script>
 
 
@@ -28,7 +34,12 @@
 							   accept="image/png , .jpg , .jpeg , image/gif, image/webp" 
 							   multiple
 						       name="avatar"
+                               bind:this={fileInput}
+                               class="hidden-input"
 							   />
+                               <button type="button" class="custom-button" on:click={handleClick}>
+                                Cambiar Avatar
+                              </button>
 					   </div>
                  </div>
                 <div class="flex-grow w-full">
@@ -70,5 +81,17 @@
 </div>
 
 <style>
+    .hidden-input {
+      display: none;
+    }
     
-</style>
+    .custom-button {
+      background-color: #f6d860;
+      color: rgb(41, 40, 40);
+      padding: 10px 20px;
+      margin-top: 18px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
