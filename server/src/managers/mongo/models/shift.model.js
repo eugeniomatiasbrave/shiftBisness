@@ -35,7 +35,7 @@ const schema = new mongoose.Schema({
       type: Number,
       default: 30000,
     }
-});
+}, { timestamps: true });
 
 const shiftModel = mongoose.model(collection, schema);
 export default shiftModel;

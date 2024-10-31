@@ -8,6 +8,8 @@ const SECRET_KEY = config.jwt.SECRET_KEY;
 const ADMIN_USER = config.app.ADMIN_USER;
 const ADMIN_PWD = config.app.ADMIN_PWD;
 
+console.log('SECRET_KEY:', SECRET_KEY, 'ADMIN_USER:', ADMIN_USER, 'ADMIN_PWD:', ADMIN_PWD);
+
 const register = async (req, res) => {
     const { email, name, password} = req.body;
 
