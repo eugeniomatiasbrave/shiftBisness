@@ -19,21 +19,19 @@ export const load = async ({ locals }) => {
 export const actions = {
     default: async ({ request }) => {
         const formData = await request.formData();
-        const uid = formData.get('id');
+        const userId = formData.get('id');
         const name = formData.get('name');
         const email = formData.get('email');
         const avatar = formData.get('avatar');
-
-        console.log('name:', name, 'avatar:', avatar); 
 
         const uploaderFormData = new FormData();
         uploaderFormData.append('name', name);
         uploaderFormData.append('email', email);
         uploaderFormData.append('avatar', avatar);
 
-       // console.log('AvatarFormData:', uploaderFormData); 
+      // console.log('AvatarFormData:', uploaderFormData); llega bien
 
-        const result = await fetch(`${API_URL}/users/${uid}`, {
+        const result = await fetch(`${API_URL}/users/${userId}`, {
             method: 'PUT',
             body: uploaderFormData,
             });

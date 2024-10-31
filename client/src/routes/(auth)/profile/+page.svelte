@@ -27,7 +27,7 @@
 						<input type="file" 
 							   accept="image/png , .jpg , .jpeg , image/gif, image/webp" 
 							   multiple
-						       name="image"
+						       name="avatar"
 							   />
 					   </div>
                  </div>

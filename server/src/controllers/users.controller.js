@@ -68,20 +68,44 @@ const deleteUser = async (req, res) => {
     }
 };
 
-const updateUser = async (req, res) => {
-    const userId = req.params.userId;
-    const updateData = req.body;
-
-    if (req.file) {
-        updateData.avatar = `/files/users/${req.file.filename}`;
+const updateUser =  async (req, res) => { 
+    const { userId } = req.params;
+    const { name, email } = req.body;
+    
+    if (!name || !email ) {  // Validar que los campos requeridos estén presentes
+        return res.status(400).json({ status: "error", error: 'Faltan datos para actualizar el usuario' });
     }
 
     try {
+        const user = await usersService.getUserById(userId);
+
+        if (!user) {
+            return res.status(404).send({ status: "error", error: 'Usuario no encontrado' });
+        }
+
+        const updateData = {
+            name,
+            email,
+            avatar:[] 
+        };
+
+        if (req.files && req.files.length > 0) {
+            for (let i = 0; i < req.files.length; i++) {
+                updateData.avatar.push({ maintype: req.files[i].mimetype, path: `/files/users/${req.files[i].filename}`, main: i == 0 });
+            }
+        } 
+
         const result = await usersService.updateUser(userId, updateData);
-        res.json({ status: "success", data: result });
+
+        if (!result) {
+            return res.status(500).send({ status: "error", error: 'Error al actualizar el avatar' });
+        }
+
+        res.json({ status: "success", message: 'Avatar actualizado', payload: result });
+
     } catch (error) {
-        console.error('Error al actualizar el usuario:', error);
-        res.status(500).send({ status: "error", error: 'Error al actualizar el usuario' });
+        console.log(error);
+        res.status(500).send({ status: 'error', error: error.message });
     }
 };
 
